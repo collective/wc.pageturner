@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<import-steps>
+    <import-step id="wc.pageturner.uninstall" version="1"
+        handler="wc.pageturner.setup.uninstall"
+        title="Uninstall step for Page Turner">
+    </import-step>
+</import-steps>

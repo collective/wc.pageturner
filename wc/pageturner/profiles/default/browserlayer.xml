@@ -1,0 +1,4 @@
+<layers>
+    <layer name="wc.pageturner" 
+           interface="wc.pageturner.interfaces.Layer" />
+</layers>

@@ -1,0 +1,5 @@
+recursive-include wc *
+recursive-include docs *
+global-exclude *pyc
+global-exclude .project
+global-exclude .pydevproject

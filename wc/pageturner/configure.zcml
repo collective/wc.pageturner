@@ -1,0 +1,78 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="wc.pageturner">
+
+  <include package="plone.app.contentmenu" />
+  
+  <genericsetup:registerProfile
+      name="default"
+      title="Page Turner"
+      directory="profiles/default"
+      description="Provides an embedded document viewer like scribd.com for Plone's File type is file is a PDF."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+  
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Page Turner Uninstall"
+      directory="profiles/uninstall"
+      description="Uninstalls the wc.pageturner package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+  
+  <browser:page
+  	name="converted.swf"
+  	for="Products.ATContentTypes.interface.file.IFileContent"
+  	class=".views.DownloadSWFView"
+  	permission="zope2.View"
+  	layer=".interfaces.Layer"
+  />
+  
+  <browser:page
+  	name="page-turner"
+  	for="Products.ATContentTypes.interface.file.IFileContent"
+  	class=".views.PageTurnerView"
+  	template="pageturner.pt"
+  	permission="zope2.View"
+  	layer=".interfaces.Layer"
+  />
+  
+  <browser:menuItem
+      for="Products.ATContentTypes.interface.file.IFileContent"
+      menu="plone_displayviews"
+      title="Page Turner"
+      action="page-turner"
+      description="Displays a PDF embedded in the web page."
+  />
+  
+  <browser:page
+      name="page-turner-settings"
+      for="Products.ATContentTypes.interface.file.IFileContent"
+      class=".views.SettingsForm"
+      layer=".interfaces.Layer"
+      permission="cmf.ModifyPortalContent"
+  />
+  
+  <adapter 
+      for="Products.ATContentTypes.interface.file.IFileContent"
+      provides=".interfaces.IPageTurnerSettings"
+      factory=".settings.Settings"
+  />
+  
+  <browser:page
+      name="pageturner-utils"
+      for="*"
+      permission="zope2.View"
+      class=".views.Utils"
+      allowed_interface=".interfaces.IUtils"
+  />
+  
+  <browser:resourceDirectory
+      name="pageturner.resources"
+      directory="resources"
+  />
+  
+</configure>
