@@ -73,7 +73,7 @@
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
 
-        <div id="pageturner" tal:condition="python: view.installed and view.is_pdf">
+        <div id="pageturner" tal:condition="python: view.installed and view.is_pdf and view.settings.successfully_converted">
           <p> To view this page ensure that Adobe Flash Player version 9.0.124 or greater is installed.</p> 
         </div>
         

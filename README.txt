@@ -1,10 +1,10 @@
 Introduction
 ============
 
-This package is a Plone product that will add a PageTurner view to the File content type. 
+This package is a Plone product that will add a `Page Turner` view to the File content type. 
 The result is that you'll be able to view PDFs much in the same way you can view them on
-scribd.com. It uses the open source project, Flex Paper to display the PDFs. You can find
-information about it `http://flexpaper.devaldi.com/`.
+scribd.com. It uses the open source project, Flex Paper, to display the PDFs. You can find
+information about it at `http://flexpaper.devaldi.com/`.
 
 
 Requirements
@@ -39,3 +39,7 @@ Tested With
 
 
 
+Credits
+-------
+
+Credit goes to Wildcard corp and Talin Senner for sponsoring and designing the product and Nathan Van Gheem for coding it.

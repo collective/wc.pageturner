@@ -122,8 +122,10 @@ class PageTurnerView(BrowserView):
                             context=self.context)
                         converted_field.set(self.context, file, _initializing_=True)
                     self.settings.last_updated = DateTime().pCommonZ()
+                    self.settings.successfully_converted = True
                 except:
-                    utils.addPortalMessage("There was an error trying to convert the PDF.")
+                    utils.addPortalMessage("There was an error trying to convert the PDF. Maybe the PDF is encrypted?")
+                    self.settings.successfully_converted = False
                     self.enabled = False
         else:
             self.is_pdf = False
@@ -157,7 +159,7 @@ var params = {
 params.quality = "high";
 params.bgcolor = "#ffffff";
 params.allowscriptaccess = "sameDomain";
-params.allowfullscreen = "false";
+params.allowfullscreen = "true";
 var attributes = {};
 attributes.id = "FlexPaperViewer";
 attributes.name = "FlexPaperViewer";
@@ -205,7 +207,7 @@ class DownloadSWFView(PageTurnerView):
             return self.render_blob_version()
         else:
             return converted_field.download(self.context)
-            
+        
 
                 
 class SettingsForm(ploneformbase.EditForm):
