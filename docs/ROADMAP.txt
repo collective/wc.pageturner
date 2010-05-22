@@ -5,5 +5,3 @@ Road Map
 ---
 
 * support other formats besides PDF--is this possible?
-
-* full screen support--maybe a bug in flex paper

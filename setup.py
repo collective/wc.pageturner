@@ -6,8 +6,8 @@ version = '0.5'
 setup(name='wc.pageturner',
       version=version,
       description="A Plone product that provides the PDF viewer FlexPaper.",
-      long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read() + '\n' +
+      long_description=open("README.txt").read() + "\n\n" +
+                       open(os.path.join("docs", "HISTORY.txt")).read() + '\n\n' +
                        open(os.path.join("docs", "ROADMAP.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -15,10 +15,10 @@ setup(name='wc.pageturner',
         "Framework :: Plone",
         "Programming Language :: Python",
         ],
-      keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      keywords='plone pdf flexpaper flex paper scridb',
+      author='Nathan Van Gheem',
+      author_email='vangheem@gmail.com',
+      url='http://svn.plone.org/svn/collective/wc.pageturner',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['wc'],
