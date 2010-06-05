@@ -4,4 +4,7 @@ Road Map
 1.0
 ---
 
+* option to automatically enable the page turner view if PDF format is detected
+  for a new file
+
 * support other formats besides PDF--is this possible?
