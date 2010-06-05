@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.6 ~ unreleased
+----------------
+
+- Avoid purging existing view methods for the File type on installation.
+  [davisagli]
+
 0.5 ~ 2010-05-21
 ----------------
 
