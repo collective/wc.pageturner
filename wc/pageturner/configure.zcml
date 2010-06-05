@@ -11,7 +11,7 @@
       name="default"
       title="Page Turner"
       directory="profiles/default"
-      description="Provides an embedded document viewer like scribd.com for Plone's File type is file is a PDF."
+      description="Provides an embedded document viewer like scribd.com for Plone's File type if file is a PDF."
       provides="Products.GenericSetup.interfaces.EXTENSION"
   />
   
