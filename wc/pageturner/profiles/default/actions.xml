@@ -5,7 +5,7 @@
         <action title="Page Turner Settings" action_id="pageturner_settings" category="object"
             condition_expr="object/@@pageturner-utils/enabled"
             url_expr="string:${object_url}/@@page-turner-settings" visible="True">
-            <permission>collective.easyslider: Manage slider settings</permission>
+            <permission>Modify view template</permission>
         </action>
 
     </action-provider>
