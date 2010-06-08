@@ -4,6 +4,9 @@ Changelog
 0.6 ~ unreleased
 ----------------
 
+- Use the subprocess module instead of popen2 to communicate with pdf2swf.
+  [davisagli]
+
 - Protect the page turner settings page with the "Modify view template"
   permission.
   [davisagli]

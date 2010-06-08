@@ -6,7 +6,7 @@ from DateTime import DateTime
 from zope.interface import implements
 from zope.formlib import form
 from StringIO import StringIO
-import os, popen2
+import os, subprocess
 from tempfile import mkstemp
 from Acquisition import aq_inner
 from webdav.common import rfc1123_date
@@ -65,9 +65,7 @@ class pdf2swf_subprocess:
         _, newpath = mkstemp()
         
         cmd = "%s %s -o %s -T 9 -f" % (self.swf2pdf_binary, path, newpath)
-        child_stdout, child_stdin, child_stderr = popen2.popen3(cmd)
-        
-        output = child_stdout.read()
+        output = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE).communicate()[0]
         if output.startswith('FATAL'):
             return Exception(output)
         
