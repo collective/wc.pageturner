@@ -22,7 +22,8 @@ from Products.ATContentTypes.interface.file import IFileContent
 import zope.event, zope.lifecycleevent
 from zope.component import getMultiAdapter
 
-
+from logging import getLogger
+logger = getLogger('wc.pageturner')
 
 converted_field = FileField('_converted_file')
 
@@ -122,6 +123,7 @@ class PageTurnerView(BrowserView):
                     self.settings.last_updated = DateTime().pCommonZ()
                     self.settings.successfully_converted = True
                 except:
+                    logger.exception('Error converting PDF')
                     utils.addPortalMessage("There was an error trying to convert the PDF. Maybe the PDF is encrypted?")
                     self.settings.successfully_converted = False
                     self.enabled = False

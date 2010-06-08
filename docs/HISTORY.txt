@@ -4,6 +4,9 @@ Changelog
 0.6 ~ unreleased
 ----------------
 
+- Don't swallow exceptions while converting; log them.
+  [davisagli]
+
 - Use the subprocess module instead of popen2 to communicate with pdf2swf.
   [davisagli]
 
