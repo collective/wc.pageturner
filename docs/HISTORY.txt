@@ -4,6 +4,9 @@ Changelog
 0.6 ~ unreleased
 ----------------
 
+- Fix for storing blobs.
+  [davisagli]
+
 - Don't swallow exceptions while converting; log them.
   [davisagli]
 

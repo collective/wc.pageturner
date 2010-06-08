@@ -113,7 +113,9 @@ class PageTurnerView(BrowserView):
                 try:
                     result = pdf2swf.convert(str(field.get(context).data))
                     if self.pab_installed:
-                        self.settings.data = Blob(result)
+                        blob = Blob()
+                        blob.open('w').writelines(result)
+                        self.settings.data = blob
                     else:
                         file = BaseUnit('_converted_file', result, 
                             mimetype='application/x-shockwave-flash',
