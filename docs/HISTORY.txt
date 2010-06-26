@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.6 ~ unreleased
-----------------
+0.6
+---
 
 - Fix for storing blobs.
   [davisagli]
