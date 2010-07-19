@@ -39,10 +39,10 @@ class pdf2swf_subprocess:
             bin_name = 'pdf2swf.exe'
         else:
             bin_name = 'pdf2swf'
-        swf2pdf_binary = self._findbinary(bin_name)
-        self.swf2pdf_binary = swf2pdf_binary
-        if swf2pdf_binary is None:
-            raise IOError, "Unable to find swf2pdf binary"
+        pdf2swf_binary = self._findbinary(bin_name)
+        self.pdf2swf_binary = pdf2swf_binary
+        if pdf2swf_binary is None:
+            raise IOError, "Unable to find pdf2swf binary"
 
     def _findbinary(self,binname):
         import os
@@ -65,7 +65,7 @@ class pdf2swf_subprocess:
         
         _, newpath = mkstemp()
         
-        cmd = "%s %s -o %s -T 9 -f" % (self.swf2pdf_binary, path, newpath)
+        cmd = "%s %s -o %s -T 9 -f" % (self.pdf2swf_binary, path, newpath)
         output = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE).communicate()[0]
         if output.startswith('FATAL'):
             return Exception(output)
