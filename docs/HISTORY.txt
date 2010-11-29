@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0 ~ unreleased
+----------------
+
+- update flexpaper to 1.4.0
+
 0.6
 ---
 
