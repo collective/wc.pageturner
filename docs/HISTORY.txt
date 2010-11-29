@@ -1,10 +1,15 @@
 Changelog
 =========
 
-1.0 ~ unreleased
-----------------
+1.0b1 ~ unreleased
+------------------
 
 - update flexpaper to 1.4.0
+  [vangheem]
+  
+- auto select page turner view for pdf files now and make configurable
+  via portal_properties -> site_properties
+  [vangheem]
 
 0.6
 ---

@@ -14,7 +14,7 @@ class IPageTurnerSettings(Interface):
         title=_(u'label_width_title_pageturner', default=u"Width"),
         description=_(u"label_width_description_pageturn", 
             default=u"The fixed width of the Page Viewer."),
-        default=600,
+        default=650,
         required=True
     )
     
@@ -29,4 +29,6 @@ class IPageTurnerSettings(Interface):
 class IUtils(Interface):
     
     def enabled():
-        pass
+        """
+        return true is page turner is enabled for the object
+        """

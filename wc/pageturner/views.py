@@ -1,11 +1,8 @@
 from Products.Five.browser import BrowserView
-from zope.annotation.interfaces import IAnnotations
 from plone.app.form import base as ploneformbase
-from persistent.dict import PersistentDict
 from DateTime import DateTime
 from zope.interface import implements
 from zope.formlib import form
-from StringIO import StringIO
 import os, subprocess
 from tempfile import mkstemp
 from Acquisition import aq_inner
@@ -78,11 +75,12 @@ class pdf2swf_subprocess:
 try:
     pdf2swf = pdf2swf_subprocess()
 except IOError:
+    logger.exception("No SWFTools installed. Page Turner will not work.")
     pdf2swf = None
 
 try:
     import plone.app.blob
-    from plone.app.blob.download import handleIfModifiedSince, handleRequestRange
+    from plone.app.blob.download import handleRequestRange
     from plone.app.blob.iterators import BlobStreamIterator
     from plone.app.blob.utils import openBlob
     from ZODB.blob import Blob
@@ -138,11 +136,10 @@ class PageTurnerView(BrowserView):
     def javascript(self):
         return """
 jq(document).ready(function(){
-<!-- For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. --> 
-var swfVersionStr = "9.0.124";
-<!-- To use express install, set to playerProductInstall.swf, otherwise the empty string. -->
-var xiSwfUrlStr = "${expressInstallSwf}";
-var flashvars = { 
+  var swfVersionStr = "10.0.0";
+  var xiSwfUrlStr = "%(context_url)s/++resource++pageturner.resources/expressinstall.swf";
+    
+  var flashvars = { 
     SwfFile : escape("%(context_url)s/converted.swf"),
     Scale : 0.6, 
     ZoomTransition : "easeOut",
@@ -152,28 +149,32 @@ var flashvars = {
     FitWidthOnLoad : true,
     PrintEnabled : true,
     FullScreenAsMaxWindow : false,
+    PrintToolsVisible : true,
+    ViewModeToolsVisible : true,
+    ZoomToolsVisible : true,
+    FullScreenVisible : true,
+    NavToolsVisible : true,
+    CursorToolsVisible : true,
+    SearchToolsVisible : true,
     localeChain: "en_US"
-};
-
-var params = {
-
-}
-params.quality = "high";
-params.bgcolor = "#ffffff";
-params.allowscriptaccess = "sameDomain";
-params.allowfullscreen = "true";
-var attributes = {};
-attributes.id = "FlexPaperViewer";
-attributes.name = "FlexPaperViewer";
-
-swfobject.embedSWF(
+  };
+	  
+  var params = {};
+  params.quality = "high";
+  params.bgcolor = "#ffffff";
+  params.allowscriptaccess = "sameDomain";
+  params.allowfullscreen = "true";
+  var attributes = {};
+  attributes.id = "FlexPaperViewer";
+  attributes.name = "FlexPaperViewer";
+  swfobject.embedSWF(
     "%(context_url)s/++resource++pageturner.resources/FlexPaperViewer.swf", "pageturner", 
-    "%(width)i", "%(height)i", 
+    "%(width)i", "%(height)i",
     swfVersionStr, xiSwfUrlStr, 
-    flashvars, params, attributes
-);
+    flashvars, params, attributes);
+    
+  swfobject.createCSS("#flashContent", "display:block;text-align:left;");
 
-swfobject.createCSS("#pageturner", "display:block;text-align:left;");
 });
 """ % {
     'context_url' : self.context.absolute_url(),
@@ -240,7 +241,9 @@ class Utils(BrowserView):
     implements(IUtils)
     
     def enabled(self):
-        return IFileContent.providedBy(self.context) and \
-            hasattr(self.context, 'layout') and self.context.layout == "page-turner"
+        try:
+            return IFileContent.providedBy(self.context) and self.context.getLayout() == 'page-turner'
+        except:
+            return False
             
             

@@ -8,34 +8,7 @@
       
 <metal:js fill-slot="javascript_head_slot">
   <script type="text/javascript" tal:attributes="src string:${context/absolute_url}/++resource++pageturner.resources/swfobject.js"></script>
-  <script type="text/javascript">
-  jq(document).ready(function(){
-		if(window.addEventListener)
-		window.addEventListener('DOMMouseScroll', handleWheel, false);
-		window.onmousewheel = document.onmousewheel = handleWheel;
-		
-		if (window.attachEvent) 
-		window.attachEvent("onmousewheel", handleWheel);
-		
-		function handleWheel(event){
-			try{
-				if(!window.document.FlexPaperViewer.hasFocus()){return true;}
-				window.document.FlexPaperViewer.setViewerFocus(true);
-				window.document.FlexPaperViewer.focus();
-				
-				if(navigator.appName == "Netscape"){
-					if (event.detail)
-						delta = 0;
-					if (event.preventDefault){
-						event.preventDefault();
-						event.returnValue = false;
-						}
-				}
-				return false;	
-			}catch(err){return true;}		
-		}
-	});
-	</script>
+	<script type="text/javascript" tal:attributes="src string:${context/absolute_url}/++resource++pageturner.resources/flexpaper_flash.js"></script>
 	
   <script type="text/javascript" tal:content="structure view/javascript"></script>
 </metal:js>

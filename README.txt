@@ -29,6 +29,9 @@ How-To
 
 * Edit the height and width of the Page turner by clicking the `Page Turner Settings` button that is now available
 
+* To turn off auto-selecting of the page turner layout for PDF files, go to ZMI -> portal_properties -> site_properties and
+  customize the page_turner_auto_select_layout property to off.
+
 
 Tested With
 -----------
@@ -38,8 +41,8 @@ Tested With
 * Also works with Blob storage transparently so the converted PDFs aren't stored in the ZODB
 
 
-
 Credits
 -------
 
 Credit goes to Wildcard corp and Talin Senner for sponsoring and designing the product and Nathan Van Gheem for coding it.
+
