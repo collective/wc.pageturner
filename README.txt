@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This package is a Plone product that will add a `Page Turner` view to the File content type. 
+This package is a Plone product that will add a `Page Turner` view to the PDF File content type. 
 The result is that you'll be able to view PDFs much in the same way you can view them on
 scribd.com. It uses the open source project, Flex Paper, to display the PDFs. You can find
 information about it at `http://flexpaper.devaldi.com/`.
@@ -14,10 +14,16 @@ This product requires that you have pdf2swf installed. pdf2swf is included with 
 I suggest you stick with the package managers to install this as there are some dependencies
 that need to be installed.
 
-If you're using Ubuntu Lucid, you can find a swftools download at `http://packages.ubuntu.com/karmic/swftools`
-that seem to work.
+If you're using Ubuntu Lucid, the swftools package should now be in the package repositories now:
 
-If all else fails, you can download SWF tools from `http://www.swftools.org/`. 
+  # sudo apt-get install swftools
+
+On Mac, if you have MacPorts installed you can,
+
+  # sudo port install swftools
+
+
+If all else fails, you can download SWF tools from `http://www.swftools.org/` and install it yourself.
 
 
 How-To
