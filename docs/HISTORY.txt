@@ -10,6 +10,11 @@ Changelog
 - auto select page turner view for pdf files now and make configurable
   via portal_properties -> site_properties
   [vangheem]
+  
+- better error checking when converting PDFs. pdf2swf still seems very
+  touchy for converting some PDFs...
+  [vangheem]
+  
 
 0.6
 ---

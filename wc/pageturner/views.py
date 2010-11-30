@@ -63,13 +63,19 @@ class pdf2swf_subprocess:
         _, newpath = mkstemp()
         
         cmd = "%s %s -o %s -T 9 -f" % (self.pdf2swf_binary, path, newpath)
-        output = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE).communicate()[0]
-        if output.startswith('FATAL'):
-            return Exception(output)
+        output = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
+        if output.startswith('FATAL') or "Segmentation fault" in output:
+            logger.exception('Error converting PDF: ' + output)
+            raise Exception(output)
         
         newfi = open(newpath)
+        newdata = newfi.read()
         
-        return newfi.read()
+        if not newdata:
+            logger.exception('Error converting PDF: ' + output)
+            raise Exception(output)
+        
+        return newdata
 
 
 try:
@@ -120,13 +126,14 @@ class PageTurnerView(BrowserView):
                             filename=self.context.getFilename().replace('.pdf', '.swf'),
                             context=self.context)
                         converted_field.set(self.context, file, _initializing_=True)
-                    self.settings.last_updated = DateTime().pCommonZ()
                     self.settings.successfully_converted = True
                 except:
                     logger.exception('Error converting PDF')
-                    utils.addPortalMessage("There was an error trying to convert the PDF. Maybe the PDF is encrypted?")
+                    utils.addPortalMessage("There was an error trying to convert the PDF. Maybe the PDF is encrypted, corrupt or malformed?")
                     self.settings.successfully_converted = False
                     self.enabled = False
+                    
+                self.settings.last_updated = DateTime().pCommonZ()
         else:
             self.is_pdf = False
             utils.addPortalMessage("The file is not a PDF.")
