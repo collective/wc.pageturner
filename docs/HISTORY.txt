@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.0b2 ~ unreleased
+------------------
+
+- added support for plone.app.async. Flex Paper conversion can now 
+  happen in the background.
+  [vangheem]
+  
+
 1.0b1 ~ 2010-11-29
 ------------------
 

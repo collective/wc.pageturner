@@ -50,3 +50,9 @@ Credits
 
 Credit goes to Wildcard corp and Talin Senner for sponsoring and designing the product and Nathan Van Gheem for coding it.
 
+
+Asynchronous Conversion
+-----------------------
+
+With large PDFs the conversion to Flex Paper can take some time. If you have plone.app.async installed and configured, 
+this conversion will now happen in asynchronously.
