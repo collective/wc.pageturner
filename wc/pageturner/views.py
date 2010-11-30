@@ -154,15 +154,16 @@ jq(document).ready(function(){
     ZoomInterval : 0.1,
     FitPageOnLoad : false,
     FitWidthOnLoad : true,
-    PrintEnabled : true,
+    PrintEnabled : %(print_enabled)s,
     FullScreenAsMaxWindow : false,
     PrintToolsVisible : true,
     ViewModeToolsVisible : true,
     ZoomToolsVisible : true,
-    FullScreenVisible : true,
+    FullScreenVisible : %(full_screen_visible)s,
     NavToolsVisible : true,
-    CursorToolsVisible : true,
-    SearchToolsVisible : true,
+    CursorToolsVisible : %(cursor_tools_visible)s,
+    SearchToolsVisible : %(search_tools_visible)s,
+    ProgressiveLoading : %(progressive_loading)s,
     localeChain: "en_US"
   };
 	  
@@ -186,7 +187,12 @@ jq(document).ready(function(){
 """ % {
     'context_url' : self.context.absolute_url(),
     'width' : self.settings.width,
-    'height' : self.settings.height
+    'height' : self.settings.height,
+    'progressive_loading' : str(self.settings.progressive_loading).lower(),
+    'print_enabled' : str(self.settings.print_enabled).lower(),
+    'full_screen_visible' : str(self.settings.full_screen_visible).lower(),
+    'search_tools_visible' : str(self.settings.search_tools_visible).lower(),
+    'cursor_tools_visible' : str(self.settings.cursor_tools_visible).lower()
 }
 
 class DownloadSWFView(PageTurnerView):

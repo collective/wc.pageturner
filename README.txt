@@ -25,9 +25,7 @@ How-To
 
 * Add your PDF as a file to your Plone site.
 
-* Select the `Page Turner` view from the display drop down.
-
-* Edit the height and width of the Page turner by clicking the `Page Turner Settings` button that is now available
+* Edit the various setting of the Page turner by clicking the `Page Turner Settings` button that is now available
 
 * To turn off auto-selecting of the page turner layout for PDF files, go to ZMI -> portal_properties -> site_properties and
   customize the page_turner_auto_select_layout property to off.

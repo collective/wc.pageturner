@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0b1 ~ unreleased
+1.0b1 ~ 2010-11-29
 ------------------
 
 - update flexpaper to 1.4.0
@@ -15,6 +15,10 @@ Changelog
   touchy for converting some PDFs...
   [vangheem]
   
+- Added progressive loading, print enabled, full screen visible, 
+  search tools visible and cursor tools visible options
+  [vangheem]
+
 
 0.6
 ---

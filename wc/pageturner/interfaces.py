@@ -26,6 +26,41 @@ class IPageTurnerSettings(Interface):
         required=True
     )
     
+    progressive_loading = schema.Bool(
+        title=_(u'label_progressive_loading_pageturner', default=u'Progressive Loading'),
+        description=_(u'label_progressive_loading_description_pageturner',
+            default=u'Progressively load the PDF. Essential for very large PDF files.'),
+        default=True
+    )
+
+    print_enabled = schema.Bool(
+        title=_(u'label_print_enabled_pageturner', default=u'Print Enabled'),
+        description=_(u'label_print_enabled_description_pageturner',
+            default=u'Printer button enabled.'),
+        default=True
+    )
+    
+    full_screen_visible = schema.Bool(
+        title=_(u'label_full_screen_visible_pageturner', default=u'Full Screen Visible'),
+        description=_(u'label_full_screen_visible_description_pageturner',
+            default=u'Full screen button visible.'),
+        default=True
+    )
+
+    search_tools_visible = schema.Bool(
+        title=_(u'label_search_tools_visible_pageturner', default=u'Search Tools Visible'),
+        description=_(u'label_search_tools_visible_description_pageturner',
+            default=u'Search tools button visible.'),
+        default=True
+    )
+    
+    cursor_tools_visible = schema.Bool(
+        title=_(u'label_cursor_tools_visible_pageturner', default=u'Cursor Tools Visible'),
+        description=_(u'label_cursor_tools_visible_description_pageturner',
+            default=u'Cursor tools button visible.'),
+        default=True
+    )
+    
 class IUtils(Interface):
     
     def enabled():
