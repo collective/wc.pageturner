@@ -52,9 +52,10 @@ class PageTurnerView(BrowserView):
             self.enabled = False
             msg = "The file is not a PDF. No need for this view."
             
-        mtool=getToolByName(self.context, 'portal_membership')
-        if mtool.checkPermission('cmf.ModifyPortalContent', self.context):
-            utils.addPortalMessage(msg)
+        if msg:
+            mtool=getToolByName(self.context, 'portal_membership')
+            if mtool.checkPermission('cmf.ModifyPortalContent', self.context):
+                utils.addPortalMessage(msg)
             
         return self.index()
 

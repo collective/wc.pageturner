@@ -1,5 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.interface.file import IFileContent
+from zope.annotation.interfaces import IAnnotations
 
 def uninstall(context):
     
@@ -22,6 +23,11 @@ def uninstall(context):
     for obj in objs:
         obj = obj.getObject()
         obj.layout = ''
+        annotations = IAnnotations(obj)
+        data = annotations.get('wc.pageturner', None)
+        if data:
+            del annotations['wc.pageturner']
+        
         
     types = getToolByName(portal, 'portal_types')
     filetype = types['File']
