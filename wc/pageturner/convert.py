@@ -7,10 +7,11 @@ from Acquisition import aq_inner
 from Products.Archetypes.BaseUnit import BaseUnit
 from DateTime import DateTime
 from logging import getLogger
+from Products.Archetypes.atapi import AnnotationStorage
 
 logger = getLogger('wc.pageturner')
 
-converted_field = FileField('_converted_file')
+converted_field = FileField('_converted_file', storage = AnnotationStorage(migrate=True))
 
 class pdf2swf_subprocess:
     """

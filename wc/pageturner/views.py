@@ -32,7 +32,7 @@ class PageTurnerView(BrowserView):
 
     installed = pdf2swf is not None
     pab_installed = has_pab
-    enabled = pdf2swf is not None and has_pab
+    enabled = pdf2swf is not None
         
     def __call__(self):
         self.settings = Settings(self.context)
