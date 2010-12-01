@@ -37,19 +37,24 @@ class PageTurnerView(BrowserView):
     def __call__(self):
         self.settings = Settings(self.context)
         utils = getToolByName(self.context, 'plone_utils')
+        msg = None
         
         if self.context.getContentType() in ('application/pdf', 'application/x-pdf', 'image/pdf'):
             if not self.installed:
-                utils.addPortalMessage("Since you do not have swftools installed on this system, we can not render the pages of this PDF.")
+                msg = "Since you do not have swftools installed on this system, we can not render the pages of this PDF."
             elif self.settings.converting is not None and self.settings.converting:
-                utils.addPortalMessage("The PDF is currently being converted to the FlexPaper view...")
+                msg = "The PDF is currently being converted to the FlexPaper view..."
                 self.enabled = False
             elif not self.settings.successfully_converted:
-                utils.addPortalMessage("There was an error trying to convert the PDF. Maybe the PDF is encrypted, corrupt or malformed?")
+                msg = "There was an error trying to convert the PDF. Maybe the PDF is encrypted, corrupt or malformed?"
                 self.enabled = False
         else:
             self.enabled = False
-            utils.addPortalMessage("The file is not a PDF. No need for this view.")
+            msg = "The file is not a PDF. No need for this view."
+            
+        mtool=getToolByName(self.context, 'portal_membership')
+        if mtool.checkPermission('cmf.ModifyPortalContent', self.context):
+            utils.addPortalMessage(msg)
             
         return self.index()
 
