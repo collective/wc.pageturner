@@ -92,6 +92,9 @@ except:
     
 
 def convert(context):
+    """
+    Convert PDF to Flex Paper
+    """
     settings = Settings(context)
     if DateTime(settings.last_updated) < DateTime(context.ModificationDate()):
         context = aq_inner(context)
