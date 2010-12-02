@@ -63,6 +63,11 @@ class pdf2swf_subprocess:
         
         newfi = open(newpath)
         newdata = newfi.read()
+        newfi.close()
+        
+        # now remove both files
+        os.remove(newpath)
+        os.remove(path)
         
         if not newdata:
             logger.exception('Error converting PDF: ' + output)

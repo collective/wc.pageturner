@@ -1,7 +1,13 @@
 Changelog
 =========
 
-1.0b2 ~ unreleased
+1.0b3 ~ 2010-12-02
+------------------
+
+- remove tmp files after using them on flex paper gen
+
+
+1.0b2 ~ 2010-12-02
 ------------------
 
 - added support for plone.app.async. Flex Paper conversion can now 
