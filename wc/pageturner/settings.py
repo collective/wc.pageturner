@@ -14,7 +14,7 @@ class Settings(object):
         self._metadata = annotations.get('wc.pageturner', None)
         if self._metadata is None:
             self._metadata = PersistentDict()
-            self._metadata['last_updated'] = DateTime('1901/01/01').pCommonZ()
+            self._metadata['last_updated'] = DateTime('1901/01/01').ISO8601()
             annotations['wc.pageturner'] = self._metadata
                     
     def __setattr__(self, name, value):

@@ -95,6 +95,7 @@ def convert(context):
     """
     Convert PDF to Flex Paper
     """
+
     settings = Settings(context)
     if DateTime(settings.last_updated) < DateTime(context.ModificationDate()):
         context = aq_inner(context)
@@ -117,7 +118,7 @@ def convert(context):
             logger.exception('Error converting PDF')
             settings.successfully_converted = False
             
-        settings.last_updated = DateTime().pCommonZ()
+        settings.last_updated = DateTime().ISO8601()
         settings.converting = False
         
     

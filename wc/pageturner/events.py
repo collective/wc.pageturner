@@ -20,7 +20,7 @@ def handle_file_creation(object, event):
     site_props = getattr(ptool, 'site_properties', None)
     auto_layout = site_props.getProperty('page_turner_auto_select_layout', False)
     
-    if auto_layout:
+    if auto_layout and object.getLayout() != 'page-turner':
         object.setLayout('page-turner')
         
     if async_installed:
