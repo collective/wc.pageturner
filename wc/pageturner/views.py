@@ -91,6 +91,7 @@ jq(document).ready(function(){
   params.bgcolor = "#ffffff";
   params.allowscriptaccess = "sameDomain";
   params.allowfullscreen = "true";
+  params.wmode = "transparent";
   var attributes = {};
   attributes.id = "FlexPaperViewer";
   attributes.name = "FlexPaperViewer";
