@@ -9,6 +9,8 @@ Changelog
   
 - switch to more accurate time format
 
+- remove temp files even when there was an error
+
 
 1.0b3 ~ 2010-12-02
 ------------------

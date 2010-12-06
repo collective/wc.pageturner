@@ -54,11 +54,11 @@ class pdf2swf_subprocess:
         cmd = "%s %s -o %s -T 9 -f" % (self.pdf2swf_binary, path, newpath)
         process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = process.communicate()[0]
-        if output.startswith('FATAL') or "Segmentation fault" in output:
+        if output.startswith('FATAL') or "Segmentation fault" in output or process.returncode != 0:
             logger.exception('Error converting PDF: ' + output)
-            raise Exception(output)
-        elif process.returncode != 0:
-            logger.exception("pdf2swf process did not exit cleanly! Error Code: %d" % (process.returncode))
+            # cleanup
+            os.remove(newpath)
+            os.remove(path)
             raise Exception(output)
         
         newfi = open(newpath)
