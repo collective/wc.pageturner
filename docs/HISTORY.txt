@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0b4 ~ unreleased
+1.0b4 ~ 2010-12-06
 ------------------
 
 - add wmode transparent for flash params so that flash does not overlap
