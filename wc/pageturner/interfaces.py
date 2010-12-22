@@ -61,6 +61,18 @@ class IPageTurnerSettings(Interface):
         default=True
     )
     
+    command_line_options = schema.TextLine(
+        title=_(u'label_command_line_options_pageturner', default=u'Command Line Options'),
+        description=_(u'description_command_line_options_pageturner', 
+            default=u'It is possible that you need to provide extra options if there are errors while converting the PDF. '
+                    u'This should be a comma seperated list of values(example "bitmap,bitmapfonts").'
+                    u"""Some known helpful options are "poly2bitmap" for bitmap errors and "bitmapfonts" """
+                    u"""for bitmap font errors."""
+        ),
+        default='',
+        required=False
+    )
+    
 class IUtils(Interface):
     
     def enabled():

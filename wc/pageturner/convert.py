@@ -43,7 +43,7 @@ class pdf2swf_subprocess:
                 return fullname
         return None
 
-    def convert(self, filedata):
+    def convert(self, filedata, s_opts=[]):
         _, path = mkstemp()
         fi = open(path, 'w')
         fi.write(filedata)
@@ -51,9 +51,12 @@ class pdf2swf_subprocess:
         
         _, newpath = mkstemp()
         
-        cmd = "%s %s -o %s -T 9 -f" % (self.pdf2swf_binary, path, newpath)
+        s_opts = ' '.join(['-s %s' % o for o in s_opts])
+        cmd = "%s %s -o %s -T 9 -f %s" % (self.pdf2swf_binary, path, newpath, s_opts)
+        logger.info("Running command %s" % cmd)
         process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = process.communicate()[0]
+        logger.info("Finished Running Command %s" % cmd)
         if output.startswith('FATAL') or "Segmentation fault" in output or process.returncode != 0:
             logger.exception('Error converting PDF: ' + output)
             # cleanup
@@ -103,7 +106,8 @@ def convert(context):
         
         import transaction
         try:
-            result = pdf2swf.convert(str(field.get(context).data))
+            opts = [o.strip().replace(' ', '').replace('\t', '') for o in settings.command_line_options.split(',')]
+            result = pdf2swf.convert(str(field.get(context).data), opts)
             transaction.begin()
             if has_pab:
                 blob = Blob()
