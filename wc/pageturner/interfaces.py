@@ -69,7 +69,7 @@ class IPageTurnerSettings(Interface):
                     u"""Some known helpful options are "poly2bitmap" for bitmap errors and "bitmapfonts" """
                     u"""for bitmap font errors."""
         ),
-        default='',
+        default=u'',
         required=False
     )
     
