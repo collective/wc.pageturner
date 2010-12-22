@@ -12,12 +12,6 @@ try:
 except:
     async_installed = False
 
-try:
-    from wildcard.pdfpal.ocr import copyPdfMetadata
-    new_pdfpal_installed = True
-except:
-    new_pdfpal_installed = False
-
 def queue_job(object):
     if async_installed:
         try:
@@ -46,6 +40,12 @@ def handle_file_creation(object, event):
     if auto_layout and object.getLayout() != 'page-turner':
         object.setLayout('page-turner')
         
+    # for circular depend
+    try:
+        from wildcard.pdfpal.ocr import copyPdfMetadata
+        new_pdfpal_installed = True
+    except:
+        new_pdfpal_installed = False
     if not new_pdfpal_installed or not qi.isProductInstalled('wildcard.pdfpal'):
         # if the new version of wildcard.pdfpal is installed, allow it to queue 
         # this job up after it creates the searchable pdf.
