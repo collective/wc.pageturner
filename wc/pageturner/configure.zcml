@@ -3,7 +3,13 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="wc.pageturner">
+
+  <!-- make sense wildcard.pdfpal is initialized first if installed 
+    so it's events are registered first.
+  -->
+  <include zcml:condition="installed wildcard.pdfpal" package="wildcard.pdfpal" />
 
   <include package="plone.app.contentmenu" />
   

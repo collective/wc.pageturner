@@ -101,8 +101,10 @@ def convert(context):
         context = aq_inner(context)
         field = context.getField('file') or context.getPrimaryField()
         
+        import transaction
         try:
             result = pdf2swf.convert(str(field.get(context).data))
+            transaction.begin()
             if has_pab:
                 blob = Blob()
                 blob.open('w').writelines(result)
@@ -120,5 +122,6 @@ def convert(context):
             
         settings.last_updated = DateTime().ISO8601()
         settings.converting = False
+        transaction.commit()
         
     
