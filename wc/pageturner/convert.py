@@ -106,7 +106,10 @@ def convert(context):
         
         import transaction
         try:
-            opts = [o.strip().replace(' ', '').replace('\t', '') for o in settings.command_line_options.split(',')]
+            if settings.command_line_options:
+                opts = [o.strip().replace(' ', '').replace('\t', '') for o in settings.command_line_options.split(',')]
+            else:
+                opts = []
             result = pdf2swf.convert(str(field.get(context).data), opts)
             transaction.begin()
             if has_pab:
