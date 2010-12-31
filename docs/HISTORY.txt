@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1b1 ~ unreleased
+1.1b1 ~ 2010-12-31
 ------------------
 
 - work seamlessly with new version of wildcard.pdfpal so it will only
