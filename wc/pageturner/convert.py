@@ -105,6 +105,7 @@ def convert(context):
         field = context.getField('file') or context.getPrimaryField()
         
         import transaction
+        transaction.commit() # commit anything done before the expensive operation
         try:
             if settings.command_line_options:
                 opts = [o.strip().replace(' ', '').replace('\t', '') for o in settings.command_line_options.split(',')]
