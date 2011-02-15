@@ -88,6 +88,14 @@
     allowed_interface=".interfaces.IUtils"
   />
   
+  <browser:page
+    name="convert-to-flexpaper"
+    for="Products.ATContentTypes.interface.file.IFileContent"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Utils"
+    attribute="convert"
+  />
+  
   <browser:resourceDirectory
     name="pageturner.resources"
     directory="resources"

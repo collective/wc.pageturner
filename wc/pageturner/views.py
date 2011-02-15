@@ -184,8 +184,13 @@ class GlobalSettingsForm(ploneformbase.EditForm):
     @form.action(_(u"label_save", default="Save"),
                  condition=form.haveInputWidgets,
                  name=u'save')
-    def handle_save_action(self, action, data):
-        super(GlobalSettingsForm, self).handle_save_action(action, data)
+    def _handle_save_action(self, action, data):
+        if form.applyChanges(self.context, self.form_fields, data, self.adapters):
+            zope.event.notify(ploneformbase.EditSavedEvent(self.context))
+            self.status = "Changes saved"
+        else:
+            zope.event.notify(ploneformbase.EditCancelledEvent(self.context))
+            self.status = "No changes"
         self.request.response.redirect(self.context.absolute_url() + '/@@global-page-turner-settings')
 
 from wc.pageturner.events import queue_job
@@ -200,7 +205,9 @@ class Utils(BrowserView):
             return False
             
     def convert(self):
-        settings = Settings(self.context)
-        settings.last_updated = DateTime().ISO8601()
-        queue_job(self.context)
-            
+        if self.enabled():
+            settings = Settings(self.context)
+            settings.last_updated = DateTime('1999/01/01').ISO8601()
+            queue_job(self.context)
+        
+        self.request.response.redirect(self.context.absolute_url() + '/view')

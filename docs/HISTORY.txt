@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2b1 ~ unreleased
+------------------
+
+- provide global settings configuration
+
+
 1.1b1 ~ 2010-12-31
 ------------------
 

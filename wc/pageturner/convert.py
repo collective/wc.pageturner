@@ -2,12 +2,13 @@ import subprocess
 import os
 from tempfile import mkstemp
 from Products.Archetypes.Field import FileField
-from settings import Settings
+from settings import Settings, GlobalSettings
 from Acquisition import aq_inner
 from Products.Archetypes.BaseUnit import BaseUnit
 from DateTime import DateTime
 from logging import getLogger
 from Products.Archetypes.atapi import AnnotationStorage
+from zope.app.component.hooks import getSite
 
 logger = getLogger('wc.pageturner')
 
@@ -52,7 +53,7 @@ class pdf2swf_subprocess:
         _, newpath = mkstemp()
         
         s_opts = ' '.join(['-s %s' % o for o in s_opts])
-        cmd = "%s %s -o %s -T 9 -f %s" % (self.pdf2swf_binary, path, newpath, s_opts)
+        cmd = "%s %s -o %s -T 9 -f -t -G %s" % (self.pdf2swf_binary, path, newpath, s_opts)
         logger.info("Running command %s" % cmd)
         process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = process.communicate()[0]
@@ -100,6 +101,9 @@ def convert(context):
     """
 
     settings = Settings(context)
+    site = getSite()
+    global_settings = GlobalSettings(site)
+    
     if DateTime(settings.last_updated) < DateTime(context.ModificationDate()):
         context = aq_inner(context)
         field = context.getField('file') or context.getPrimaryField()
@@ -107,8 +111,9 @@ def convert(context):
         import transaction
         transaction.commit() # commit anything done before the expensive operation
         try:
-            if settings.command_line_options:
-                opts = [o.strip().replace(' ', '').replace('\t', '') for o in settings.command_line_options.split(',')]
+            s_options = settings.command_line_options and settings.command_line_options or global_settings.command_line_options
+            if s_options:
+                opts = [o.strip().replace(' ', '').replace('\t', '') for o in s_options.split(',')]
             else:
                 opts = []
             result = pdf2swf.convert(str(field.get(context).data), opts)
