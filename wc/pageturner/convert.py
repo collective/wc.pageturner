@@ -118,7 +118,7 @@ def convert(context):
                 opts = [o.strip().replace(' ', '').replace('\t', '') for o in s_options.split(',')]
             else:
                 opts = []
-            result = pdf2swf.convert(str(field.get(context).data), opts, password=settings.password)
+            result = pdf2swf.convert(str(field.get(context).data), opts, password=settings.encryption_password)
             transaction.begin()
             if has_pab:
                 blob = Blob()
