@@ -96,6 +96,14 @@
     attribute="convert"
   />
   
+  <browser:page
+    name="convertall-to-flexpaper"
+    for="Products.CMFPlone.Portal.PloneSite"
+    permission="cmf.ManagePortal"
+    class=".views.Utils"
+    attribute="convert_all"
+  />
+  
   <browser:resourceDirectory
     name="pageturner.resources"
     directory="resources"

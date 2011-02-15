@@ -56,3 +56,9 @@ Asynchronous Conversion
 
 With large PDFs the conversion to Flex Paper can take some time. If you have plone.app.async installed and configured, 
 this conversion will now happen in asynchronously.
+
+
+Convert All
+-----------
+
+If you'd like to convert all the existing documents on your site, visit the url, http://www.yoursite.com/@@convertall-to-flexpaper

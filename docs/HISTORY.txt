@@ -1,12 +1,14 @@
 Changelog
 =========
 
-1.2b1 ~ unreleased
+1.2a1 ~ unreleased
 ------------------
 
 - provide global settings configuration
 
 - provide ability to enter password for encrypted pdf
+
+- provide ability to convert all pdfs on the site to flex paper
 
 
 1.1b1 ~ 2010-12-31

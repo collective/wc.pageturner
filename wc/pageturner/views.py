@@ -211,3 +211,29 @@ class Utils(BrowserView):
             queue_job(self.context)
         
         self.request.response.redirect(self.context.absolute_url() + '/view')
+
+    def convert_all(self):
+        confirm = self.request.get('confirm', 'no')
+        if confirm != 'yes':
+            return 'You must append "?confirm=yes"'
+        else:
+            ptool = getToolByName(object, 'portal_properties')
+            site_props = getattr(ptool, 'site_properties', None)
+            auto_layout = site_props.getProperty('page_turner_auto_select_layout', False)
+            
+            catalog = getToolByName(self.context, 'portal_catalog')
+            files = catalog(object_provides=IFileContent.__identifier__)
+            for brain in files:
+                file = brain.getObject()
+                if file.getContentType() not in ('application/pdf', 'application/x-pdf', 'image/pdf'):
+                    continue
+
+                if auto_layout and file.getLayout() != 'page-turner':
+                    file.setLayout('page-turner')
+                    
+                self.request.response.write('Converting %s to flex paper...\n' % file.absolute_url())
+                settings = Settings(file)
+                settings.last_updated = DateTime('1999/01/01').ISO8601()
+                queue_job(file)
+                
+            
