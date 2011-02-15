@@ -44,7 +44,7 @@ class pdf2swf_subprocess:
                 return fullname
         return None
 
-    def convert(self, filedata, s_opts=[]):
+    def convert(self, filedata, s_opts=[], password=None):
         _, path = mkstemp()
         fi = open(path, 'w')
         fi.write(filedata)
@@ -53,7 +53,9 @@ class pdf2swf_subprocess:
         _, newpath = mkstemp()
         
         s_opts = ' '.join(['-s %s' % o for o in s_opts])
-        cmd = "%s %s -o %s -T 9 -f -t -G %s" % (self.pdf2swf_binary, path, newpath, s_opts)
+        if password:
+            password = '--password=%s' % password
+        cmd = "%s %s -o %s -T 9 -f -t -G %s %s" % (self.pdf2swf_binary, path, newpath, s_opts, password)
         logger.info("Running command %s" % cmd)
         process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = process.communicate()[0]
@@ -116,7 +118,7 @@ def convert(context):
                 opts = [o.strip().replace(' ', '').replace('\t', '') for o in s_options.split(',')]
             else:
                 opts = []
-            result = pdf2swf.convert(str(field.get(context).data), opts)
+            result = pdf2swf.convert(str(field.get(context).data), opts, password=settings.password)
             transaction.begin()
             if has_pab:
                 blob = Blob()

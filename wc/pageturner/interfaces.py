@@ -148,6 +148,13 @@ class IPageTurnerSettings(Interface):
         required=False
     )
     
+    password = schema.Password(
+        title=_(u'label_password_pageturner', default=u'Password'),
+        description=_(u'description_password_pageturner', default=u'Enter a password if your pdf is encrypted.'),
+        default=u'',
+        required=False
+    )
+    
     
     
 class IUtils(Interface):

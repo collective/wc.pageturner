@@ -6,6 +6,8 @@ Changelog
 
 - provide global settings configuration
 
+- provide ability to enter password for encrypted pdf
+
 
 1.1b1 ~ 2010-12-31
 ------------------
