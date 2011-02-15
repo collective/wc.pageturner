@@ -6,13 +6,14 @@ from webdav.common import rfc1123_date
 from Products.Archetypes.utils import contentDispositionHeader
 from os import fstat
 from Products.CMFCore.utils import getToolByName
-from interfaces import IPageTurnerSettings, IUtils
+from interfaces import IPageTurnerSettings, IUtils, IGlobalPageTurnerSettings
 from wc.pageturner import mf as _
-from settings import Settings
+from settings import Settings, GlobalSettings
 from Products.ATContentTypes.interface.file import IFileContent
 import zope.event, zope.lifecycleevent
 from zope.component import getMultiAdapter
 from convert import pdf2swf, converted_field
+from zope.app.component.hooks import getSite
 
 from logging import getLogger
 logger = getLogger('wc.pageturner')
@@ -27,6 +28,8 @@ try:
 except:
     has_pab = False
     
+def either(one, two):
+    return one is None and two or one
     
 class PageTurnerView(BrowserView):
 
@@ -35,7 +38,10 @@ class PageTurnerView(BrowserView):
     enabled = pdf2swf is not None
         
     def __call__(self):
+        site = getSite()
         self.settings = Settings(self.context)
+        self.global_settings = GlobalSettings(site)
+        
         utils = getToolByName(self.context, 'plone_utils')
         msg = None
         
@@ -106,13 +112,13 @@ jq(document).ready(function(){
 });
 """ % {
     'context_url' : self.context.absolute_url(),
-    'width' : self.settings.width,
-    'height' : self.settings.height,
-    'progressive_loading' : str(self.settings.progressive_loading).lower(),
-    'print_enabled' : str(self.settings.print_enabled).lower(),
-    'full_screen_visible' : str(self.settings.full_screen_visible).lower(),
-    'search_tools_visible' : str(self.settings.search_tools_visible).lower(),
-    'cursor_tools_visible' : str(self.settings.cursor_tools_visible).lower()
+    'width' : either(self.settings.width, self.global_settings.width),
+    'height' : either(self.settings.height, self.global_settings.height),
+    'progressive_loading' : str(either(self.settings.progressive_loading, self.global_settings.progressive_loading)).lower(),
+    'print_enabled' : str(either(self.settings.print_enabled, self.global_settings.print_enabled)).lower(),
+    'full_screen_visible' : str(either(self.settings.full_screen_visible, self.global_settings.full_screen_visible)).lower(),
+    'search_tools_visible' : str(either(self.settings.search_tools_visible, self.global_settings.search_tools_visible)).lower(),
+    'cursor_tools_visible' : str(either(self.settings.cursor_tools_visible, self.global_settings.cursor_tools_visible)).lower()
 }
 
 class DownloadSWFView(PageTurnerView):
@@ -152,7 +158,7 @@ class SettingsForm(ploneformbase.EditForm):
     form_fields = form.FormFields(IPageTurnerSettings)
 
     label = _(u'heading_pageturner_settings_form', default=u"Page Turner Settings")
-    description = _(u'description_pageturner_settings_form', default=u"Configure the parameters for this Viewer.")
+    description = _(u'description_pageturner_settings_form', default=u"these settings override the global settings.")
 
     @form.action(_(u"label_save", default="Save"),
                  condition=form.haveInputWidgets,
@@ -168,6 +174,19 @@ class SettingsForm(ploneformbase.EditForm):
             
         url = getMultiAdapter((self.context, self.request), name='absolute_url')() + '/view'
         self.request.response.redirect(url)
+
+class GlobalSettingsForm(ploneformbase.EditForm):
+    form_fields = form.FormFields(IGlobalPageTurnerSettings)
+
+    label = _(u'heading_pageturner_global_settings_form', default=u"Global Page Turner Settings")
+    description = _(u'description_pageturner_global_settings_form', default=u"Configure the parameters for this Viewer.")
+
+    @form.action(_(u"label_save", default="Save"),
+                 condition=form.haveInputWidgets,
+                 name=u'save')
+    def handle_save_action(self, action, data):
+        super(GlobalSettingsForm, self).handle_save_action(action, data)
+        self.request.response.redirect(self.context.absolute_url() + '/@@global-page-turner-settings')
 
 from wc.pageturner.events import queue_job
 from DateTime import DateTime

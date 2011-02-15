@@ -1,11 +1,11 @@
 from zope.interface import implements
 from persistent.dict import PersistentDict
 from zope.annotation.interfaces import IAnnotations
-from interfaces import IPageTurnerSettings
+from interfaces import IPageTurnerSettings, IGlobalPageTurnerSettings
 from DateTime import DateTime
 
-class Settings(object):
-    implements(IPageTurnerSettings)
+class Base(object):
+    use_interface = None
     
     def __init__(self, context):
         self.context = context
@@ -18,14 +18,22 @@ class Settings(object):
             annotations['wc.pageturner'] = self._metadata
                     
     def __setattr__(self, name, value):
-        if name[0] == '_' or name == 'context':
+        if name[0] == '_' or name in ['context', 'use_interface']:
             self.__dict__[name] = value
         else:
             self._metadata[name] = value
 
     def __getattr__(self, name):
         default = None
-        if name in IPageTurnerSettings.names():
-            default = IPageTurnerSettings[name].default
+        if name in self.use_interface.names():
+            default = self.use_interface[name].default
 
         return self._metadata.get(name, default)
+        
+class Settings(Base):
+    implements(IPageTurnerSettings)
+    use_interface = IPageTurnerSettings
+    
+class GlobalSettings(Base):
+    use_interface = IGlobalPageTurnerSettings
+    implements(IGlobalPageTurnerSettings)
