@@ -169,6 +169,8 @@ class SettingsForm(ploneformbase.EditForm):
         url = getMultiAdapter((self.context, self.request), name='absolute_url')() + '/view'
         self.request.response.redirect(url)
 
+from wc.pageturner.events import queue_job
+from DateTime import DateTime
 class Utils(BrowserView):
     implements(IUtils)
     
@@ -178,4 +180,8 @@ class Utils(BrowserView):
         except:
             return False
             
+    def convert(self):
+        settings = Settings(self.context)
+        settings.last_updated = DateTime().ISO8601()
+        queue_job(self.context)
             

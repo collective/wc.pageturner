@@ -79,3 +79,8 @@ class IUtils(Interface):
         """
         return true is page turner is enabled for the object
         """
+    
+    def convert():
+        """
+        force conversion
+        """
