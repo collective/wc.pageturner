@@ -130,4 +130,13 @@
       profile="wc.pageturner:default"
   />
   
+  <genericsetup:upgradeStep
+      title="Upgrade wc.pageturner"
+      description="Upgrade Page Turner to 1.2b1"
+      source="2"
+      destination="3"
+      handler=".migration.upgrade_to_12"
+      profile="wc.pageturner:default"
+  />
+  
 </configure>

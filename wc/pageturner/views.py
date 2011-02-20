@@ -171,7 +171,13 @@ class SettingsForm(ploneformbase.EditForm):
         else:
             zope.event.notify(ploneformbase.EditCancelledEvent(self.context))
             self.status = "No changes"
-            
+        
+        # convert right now if password provided
+        if data.get('encryption_password', None):
+            settings = Settings(self.context)
+            settings.last_updated = DateTime('1999/01/01').ISO8601()
+            queue_job(self.context)
+        
         url = getMultiAdapter((self.context, self.request), name='absolute_url')() + '/view'
         self.request.response.redirect(url)
 

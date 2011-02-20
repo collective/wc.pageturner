@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2b1 ~ 2011-02-20
+------------------
+
+- re-convert pdf is password is provided on save of page turner settings
+
+
 1.2a1 ~ 2011-02-15
 ------------------
 
