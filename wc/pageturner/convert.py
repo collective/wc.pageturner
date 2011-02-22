@@ -55,6 +55,8 @@ class pdf2swf_subprocess:
         s_opts = ' '.join(['-s %s' % o for o in s_opts])
         if password:
             password = '--password=%s' % password
+        else:
+            password = ''
         cmd = "%s %s -o %s -T 9 -f -t -G %s %s" % (self.pdf2swf_binary, path, newpath, s_opts, password)
         logger.info("Running command %s" % cmd)
         process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
