@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.2b1'
+version = '1.2.1rc1'
 
 setup(name='wc.pageturner',
       version=version,

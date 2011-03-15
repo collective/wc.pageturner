@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2.1rc1 ~ unreleased
+1.2.1rc1 ~ 2011-03-14
 ---------------------
 
 - fit page width for flex paper setting integration
