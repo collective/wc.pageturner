@@ -77,8 +77,8 @@ jq(document).ready(function(){
     ZoomTransition : "easeOut",
     ZoomTime : 0.5,
     ZoomInterval : 0.1,
-    FitPageOnLoad : false,
-    FitWidthOnLoad : true,
+    FitPageOnLoad : true,
+    FitWidthOnLoad : %(fit_width_on_load)s,
     PrintEnabled : %(print_enabled)s,
     FullScreenAsMaxWindow : false,
     PrintToolsVisible : true,
@@ -114,11 +114,12 @@ jq(document).ready(function(){
     'context_url' : self.context.absolute_url(),
     'width' : either(self.settings.width, self.global_settings.width),
     'height' : either(self.settings.height, self.global_settings.height),
+    'fit_width_on_load' : str(either(self.settings.fit_width_on_load, self.global_settings.fit_width_on_load)).lower(),
     'progressive_loading' : str(either(self.settings.progressive_loading, self.global_settings.progressive_loading)).lower(),
     'print_enabled' : str(either(self.settings.print_enabled, self.global_settings.print_enabled)).lower(),
     'full_screen_visible' : str(either(self.settings.full_screen_visible, self.global_settings.full_screen_visible)).lower(),
     'search_tools_visible' : str(either(self.settings.search_tools_visible, self.global_settings.search_tools_visible)).lower(),
-    'cursor_tools_visible' : str(either(self.settings.cursor_tools_visible, self.global_settings.cursor_tools_visible)).lower()
+    'cursor_tools_visible' : str(either(self.settings.cursor_tools_visible, self.global_settings.cursor_tools_visible)).lower(),
 }
 
 class DownloadSWFView(PageTurnerView):

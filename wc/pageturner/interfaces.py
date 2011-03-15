@@ -43,6 +43,14 @@ class IGlobalPageTurnerSettings(Interface):
         required=False
     )
     
+    fit_width_on_load = schema.Bool(
+        title=_(u'label_fit_width_on_load_pageturner', default=u'Fit Width'),
+        description=_(u'label_fit_width_on_load_description_pageturner',
+            default=u'Should we scale to full width'),
+        default=False,
+        required=False
+    )
+ 
     full_screen_visible = schema.Bool(
         title=_(u'label_full_screen_visible_pageturner', default=u'Full Screen Visible'),
         description=_(u'label_full_screen_visible_description_pageturner',
@@ -108,6 +116,14 @@ class IPageTurnerSettings(Interface):
         title=_(u'label_print_enabled_pageturner', default=u'Print Enabled'),
         description=_(u'label_print_enabled_description_pageturner',
             default=u'Printer button enabled.'),
+        default=None,
+        required=False
+    )
+    
+    fit_width_on_load = schema.Bool(
+        title=_(u'label_fit_width_on_load_pageturner', default=u'Fit width'),
+        description=_(u'label_fit_width_on_load_description_pageturner',
+            default=u'Should the pages fit the width.'),
         default=None,
         required=False
     )

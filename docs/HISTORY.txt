@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.2.1rc1 ~ unreleased
+---------------------
+
+- fit page width for flex paper setting integration
+  [espen]
+  
+
 1.2b1 ~ 2011-02-20
 ------------------
 
