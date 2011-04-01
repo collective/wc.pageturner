@@ -75,7 +75,7 @@ class PageTurnerView(BrowserView):
         return """
 jq(document).ready(function(){
   var swfVersionStr = "10.0.0";
-  var xiSwfUrlStr = "%(portal_url)s/++resource++pageturner.resources/expressinstall.swf";
+  var xiSwfUrlStr = "%(portal_url)s/++resource++pageturner.resources/expressInstall.swf";
     
   var flashvars = { 
     SwfFile : escape("%(context_url)s/converted.swf"),
