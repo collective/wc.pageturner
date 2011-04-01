@@ -14,6 +14,7 @@ import zope.event, zope.lifecycleevent
 from zope.component import getMultiAdapter
 from convert import pdf2swf, converted_field
 from zope.app.component.hooks import getSite
+from plone.memoize.view import memoize
 
 from logging import getLogger
 logger = getLogger('wc.pageturner')
@@ -36,6 +37,11 @@ class PageTurnerView(BrowserView):
     installed = pdf2swf is not None
     pab_installed = has_pab
     enabled = pdf2swf is not None
+        
+    @property
+    @memoize
+    def portal_url(self):
+        return getMultiAdapter((self.context, self.request), name="plone_portal_state").portal_url()
         
     def __call__(self):
         site = getSite()
@@ -69,7 +75,7 @@ class PageTurnerView(BrowserView):
         return """
 jq(document).ready(function(){
   var swfVersionStr = "10.0.0";
-  var xiSwfUrlStr = "%(context_url)s/++resource++pageturner.resources/expressinstall.swf";
+  var xiSwfUrlStr = "%(portal_url)s/++resource++pageturner.resources/expressinstall.swf";
     
   var flashvars = { 
     SwfFile : escape("%(context_url)s/converted.swf"),
@@ -102,7 +108,7 @@ jq(document).ready(function(){
   attributes.id = "FlexPaperViewer";
   attributes.name = "FlexPaperViewer";
   swfobject.embedSWF(
-    "%(context_url)s/++resource++pageturner.resources/FlexPaperViewer.swf", "pageturner", 
+    "%(portal_url)s/++resource++pageturner.resources/FlexPaperViewer.swf", "pageturner", 
     "%(width)i", "%(height)i",
     swfVersionStr, xiSwfUrlStr, 
     flashvars, params, attributes);
@@ -112,6 +118,7 @@ jq(document).ready(function(){
 });
 """ % {
     'context_url' : self.context.absolute_url(),
+    'portal_url' : self.portal_url,
     'width' : either(self.settings.width, self.global_settings.width),
     'height' : either(self.settings.height, self.global_settings.height),
     'fit_width_on_load' : str(either(self.settings.fit_width_on_load, self.global_settings.fit_width_on_load)).lower(),
