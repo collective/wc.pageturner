@@ -45,12 +45,14 @@ class pdf2swf_subprocess:
         return None
 
     def convert(self, filedata, s_opts=[], password=None):
-        _, path = mkstemp()
-        fi = open(path, 'w')
+        fd, path = mkstemp()
+        os.close(fd)
+        fi = open(path, 'wb')
         fi.write(filedata)
         fi.close()
         
-        _, newpath = mkstemp()
+        fd, newpath = mkstemp()
+        os.close(fd)
         
         s_opts = ' '.join(['-s %s' % o for o in s_opts])
         if password:
@@ -69,7 +71,7 @@ class pdf2swf_subprocess:
             os.remove(path)
             raise Exception(output)
         
-        newfi = open(newpath)
+        newfi = open(newpath, 'rb')
         newdata = newfi.read()
         newfi.close()
         
@@ -124,7 +126,9 @@ def convert(context):
             transaction.begin()
             if has_pab:
                 blob = Blob()
-                blob.open('w').writelines(result)
+                bfile = blob.open('w')
+                bfile.write(result)
+                bfile.close()
                 settings.data = blob
             else:
                 file = BaseUnit('_converted_file', result, 

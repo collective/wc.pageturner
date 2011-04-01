@@ -26,6 +26,12 @@ On Mac, if you have MacPorts installed you can,
 If all else fails, you can download SWF tools from `http://www.swftools.org/` and install it yourself.
 
 
+Windows Users
+~~~~~~~~~~~~~
+
+Make sure pdf2swf.exe is in your path otherwise this product won't work.
+
+
 How-To
 ------
 
