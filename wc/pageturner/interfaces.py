@@ -124,7 +124,7 @@ class IPageTurnerSettings(Interface):
         title=_(u'label_fit_width_on_load_pageturner', default=u'Fit width'),
         description=_(u'label_fit_width_on_load_description_pageturner',
             default=u'Should the pages fit the width.'),
-        default=False,
+        default=None,
         required=False
     )
     
