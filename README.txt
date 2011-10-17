@@ -68,3 +68,9 @@ Convert All
 -----------
 
 If you'd like to convert all the existing documents on your site, visit the url, http://www.yoursite.com/@@convertall-to-flexpaper
+
+
+TODO
+----
+
+- Add supoort for dexterity content types. Maybe via a behavior
