@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2.5 ~ unreleased
+------------------
+
+- fix js error when rendering pdf.
+  [vangheem]
+
 1.2.4 ~ 2011-10-16
 ------------------
 
