@@ -89,7 +89,7 @@ class PageTurnerView(BrowserView):
     def javascript(self):
         return """
 jq(document).ready(function(){
-    var fp = new FlexPaperViewer(
+    window.flexPaper = new FlexPaperViewer(
         '%(portal_url)s/++resource++pageturner.resources/FlexPaperViewer',
         'pageturner', { config : {
         SwfFile : escape('%(context_url)s/converted.swf'),
@@ -113,7 +113,8 @@ jq(document).ready(function(){
         SearchToolsVisible : %(search_tools_visible)s,
         ProgressiveLoading : %(progressive_loading)s,
 
-        localeChain: 'en_US'
+        localeChain: 'en_US',
+        swfinstall: '%(portal_url)s/++resource++pageturner.resources/playerProductInstall.swf'
         }});
     jq('#pageturner').show().width(%(width)s).height(%(height)s);
 });

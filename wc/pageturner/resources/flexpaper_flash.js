@@ -1,3 +1,14 @@
+var docViewer;
+
+function getDocViewer(){
+    if(docViewer)
+    	return docViewer;
+    else
+    	docViewer = window.FlexPaperViewer_Instance.getApi();
+    	
+    return docViewer;
+}
+
 window.$FlexPaper = window["$FlexPaper"] = function(){
 	if (window['flexpaper']) 
 		return window['flexpaper'];
@@ -19,7 +30,7 @@ window.FlexPaperViewer = window.$f = function() {
 	
 			src: arguments[0]+".swf",
 			version: [10, 0],
-			expressInstall: "js/expressinstall.swf"
+			expressInstall: config.swfinstall
 		},{
 			SwfFile : config.SwfFile,
 			Scale : config.Scale, 
