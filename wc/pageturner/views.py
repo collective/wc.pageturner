@@ -89,47 +89,33 @@ class PageTurnerView(BrowserView):
     def javascript(self):
         return """
 jq(document).ready(function(){
-  var swfVersionStr = "10.0.0";
-  var xiSwfUrlStr = "%(portal_url)s/++resource++pageturner.resources/expressInstall.swf";
+    var fp = new FlexPaperViewer(
+        '%(portal_url)s/++resource++pageturner.resources/FlexPaperViewer',
+        'pageturner', { config : {
+        SwfFile : escape('%(context_url)s/converted.swf'),
+        Scale : 0.6,
+        ZoomTransition : 'easeOut',
+        ZoomTime : 0.5,
+        ZoomInterval : 0.2,
+        FitPageOnLoad : true,
+        FitWidthOnLoad : %(fit_width_on_load)s,
+        FullScreenAsMaxWindow : false,
+        ProgressiveLoading : false,
+        MinZoomSize : 0.2,
+        MaxZoomSize : 5,
+        SearchMatchAll : false,
+        InitViewMode : 'Portrait',
+        PrintPaperAsBitmap : false,
 
-  var flashvars = {
-    SwfFile : escape("%(context_url)s/converted.swf"),
-    Scale : 0.6,
-    ZoomTransition : "easeOut",
-    ZoomTime : 0.5,
-    ZoomInterval : 0.1,
-    FitPageOnLoad : true,
-    FitWidthOnLoad : %(fit_width_on_load)s,
-    PrintEnabled : %(print_enabled)s,
-    FullScreenAsMaxWindow : false,
-    PrintToolsVisible : true,
-    ViewModeToolsVisible : true,
-    ZoomToolsVisible : true,
-    FullScreenVisible : %(full_screen_visible)s,
-    NavToolsVisible : true,
-    CursorToolsVisible : %(cursor_tools_visible)s,
-    SearchToolsVisible : %(search_tools_visible)s,
-    ProgressiveLoading : %(progressive_loading)s,
-    localeChain: "en_US"
-  };
+        ViewModeToolsVisible : true,
+        PrintEnabled : %(print_enabled)s,
+        CursorToolsVisible : %(cursor_tools_visible)s,
+        SearchToolsVisible : %(search_tools_visible)s,
+        ProgressiveLoading : %(progressive_loading)s,
 
-  var params = {};
-  params.quality = "high";
-  params.bgcolor = "#ffffff";
-  params.allowscriptaccess = "sameDomain";
-  params.allowfullscreen = "true";
-  params.wmode = "transparent";
-  var attributes = {};
-  attributes.id = "FlexPaperViewer";
-  attributes.name = "FlexPaperViewer";
-  swfobject.embedSWF(
-    "%(portal_url)s/++resource++pageturner.resources/FlexPaperViewer.swf", "pageturner",
-    "%(width)i", "%(height)i",
-    swfVersionStr, xiSwfUrlStr,
-    flashvars, params, attributes);
-
-  swfobject.createCSS("#flashContent", "display:block;text-align:left;");
-
+        localeChain: 'en_US'
+        }});
+    jq('#pageturner').show().width(%(width)s).height(%(height)s);
 });
 """ % {
     'context_url': self.context.absolute_url(),

@@ -74,3 +74,9 @@ TODO
 ----
 
 - Add supoort for dexterity content types. Maybe via a behavior
+
+
+Versions
+--------
+
+Flexpaper: 1.5.1

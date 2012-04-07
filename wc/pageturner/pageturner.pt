@@ -7,16 +7,14 @@
       i18n:domain="plone">
       
 <metal:js fill-slot="javascript_head_slot">
-  <script type="text/javascript" tal:attributes="src string:${view/portal_url}/++resource++pageturner.resources/swfobject.js"></script>
-	<script type="text/javascript" tal:attributes="src string:${view/portal_url}/++resource++pageturner.resources/flexpaper_flash.js"></script>
+   
+  <link rel="stylesheet" type="text/css"
+      tal:attributes="href string:${view/portal_url}/++resource++pageturner.resources/styles.css" />
+	<script type="text/javascript"
+    tal:attributes="src string:${view/portal_url}/++resource++pageturner.resources/flexpaper_flash.js"></script>
 	
   <script type="text/javascript" tal:content="structure view/javascript"></script>
 </metal:js>
-<metal:css fill-slot="style_slot">
-	  <style type="text/css" media="screen"> 
-	    #pageturner { display:none; }
-    </style>
-</metal:css>
 
 <body>
 
@@ -49,6 +47,9 @@
         <div id="pageturner" tal:condition="python: view.installed and view.enabled">
           <p> To view this page ensure that Adobe Flash Player version 9.0.124 or greater is installed.</p> 
         </div>
+        <noscript tal:condition="python: view.installed and view.enabled">
+          Javascript required in order to display this PDF.
+        </noscript>
         
         <p>
             <metal:field use-macro="python:here.widget('file', mode='view')">
