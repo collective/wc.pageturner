@@ -51,7 +51,7 @@ class PageTurnerView(BrowserView):
         return getMultiAdapter((self.context, self.request),
             name="plone_portal_state").portal_url()
 
-    def __call__(self):
+    def initialize(self):
         site = getSite()
         self.settings = Settings(self.context)
         self.global_settings = GlobalSettings(site)
@@ -82,7 +82,9 @@ class PageTurnerView(BrowserView):
             if mtool.checkPermission('cmf.ModifyPortalContent', self.context):
                 utils.addPortalMessage(msg)
 
-        return self.index()
+    def __call__(self):
+        self.initialize()
+        return super(PageTurnerView, self).__call__()
 
     def javascript(self):
         return """
