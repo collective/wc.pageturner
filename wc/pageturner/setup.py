@@ -30,5 +30,5 @@ def uninstall(context):
     types = getToolByName(portal, 'portal_types')
     filetype = types['File']
     methods = list(filetype.view_methods)
-    methods = methods.remove('page-turner')
+    methods.remove('page-turner')
     filetype.view_methods = tuple(methods)
