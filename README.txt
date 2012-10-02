@@ -22,6 +22,7 @@ On Mac, if you have MacPorts installed you can,
 
   # sudo port install swftools
 
+On Debian, you'll need to install from source as the swftools package does not include pdf2swf: `http://wiki.swftools.org/wiki/Installation`
 
 If all else fails, you can download SWF tools from `http://www.swftools.org/` and install it yourself.
 
