@@ -30,7 +30,8 @@ window.FlexPaperViewer = window.$f = function() {
 	
 			src: arguments[0]+".swf",
 			version: [10, 0],
-			expressInstall: config.swfinstall
+			expressInstall: config.swfinstall,
+			cachebusting: false
 		},{
 			SwfFile : config.SwfFile,
 			Scale : config.Scale, 
