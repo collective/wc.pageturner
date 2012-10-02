@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.3.2'
+version = '1.3.3'
 
 setup(name='wc.pageturner',
       version=version,
@@ -18,7 +18,7 @@ setup(name='wc.pageturner',
       keywords='plone pdf flexpaper flex paper scridb',
       author='Nathan Van Gheem',
       author_email='vangheem@gmail.com',
-      url='http://svn.plone.org/svn/collective/wc.pageturner',
+      url='https://github.com/collective/wc.pageturner',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['wc'],
