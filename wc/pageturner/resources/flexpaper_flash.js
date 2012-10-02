@@ -27,7 +27,7 @@ window.FlexPaperViewer = window.$f = function() {
 	var config = arguments[2].config;
 
 	window.FlexPaperViewer_Instance = flashembed(arguments[1], {
-	
+			wmode: "opaque",
 			src: arguments[0]+".swf",
 			version: [10, 0],
 			expressInstall: config.swfinstall,

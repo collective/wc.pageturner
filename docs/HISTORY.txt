@@ -1,16 +1,22 @@
 Changelog
 =========
 
+1.3.3 ~ unreleased
+------------------
+
+- add back 1.3.2 change that was missed
+  [vangheem]
+
 1.3.3 ~ 2012-10-02
 ------------------
 
-- changed homepage
-- lining up files correctly on the release
+- changed 'cachebusting' to be false for all browsers
+  [Joel.Kleier]
 
 1.3.2 ~ 2012-10-02
 ------------------
 
-- changed 'cachebusting' to be false for all browsers
+- fix wmode used
 
 1.3.1 ~ 2012-06-19
 ------------------
