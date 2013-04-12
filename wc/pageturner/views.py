@@ -14,7 +14,7 @@ import zope.event
 import zope.lifecycleevent
 from zope.component import getMultiAdapter
 from convert import pdf2swf, converted_field
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 from plone.memoize.view import memoize
 from wc.pageturner.events import queue_job
 from DateTime import DateTime
