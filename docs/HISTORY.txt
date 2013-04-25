@@ -4,6 +4,8 @@ Changelog
 1.3.5dev ~ unreleased
 ---------------------
 
+- Remove zope.app.* dependencies.
+  [esteele]
 
 1.3.4 ~ 2012-10-02
 ------------------
