@@ -8,7 +8,7 @@ from Products.Archetypes.BaseUnit import BaseUnit
 from DateTime import DateTime
 from logging import getLogger
 from Products.Archetypes.atapi import AnnotationStorage
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 
 logger = getLogger('wc.pageturner')
 
