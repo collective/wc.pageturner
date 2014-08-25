@@ -1,5 +1,5 @@
 from Products.CMFCore.utils import getToolByName
-from Products.ATContentTypes.interface.file import IFileContent
+from plone.app.contenttypes.interfaces import IFile
 from zope.annotation.interfaces import IAnnotations
 
 
@@ -18,7 +18,7 @@ def uninstall(context):
             object_buttons.manage_delObjects([action])
 
     catalog = getToolByName(portal, 'portal_catalog')
-    objs = catalog(object_provides=IFileContent.__identifier__)
+    objs = catalog(object_provides=IFile.__identifier__)
 
     for obj in objs:
         obj = obj.getObject()

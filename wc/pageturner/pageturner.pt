@@ -19,32 +19,34 @@
 <body>
 
 <div metal:fill-slot="content-core">
-    <tal:content-core metal:define-macro="content-core" 
-           tal:define="size python:here.getObjSize(here);
-                       content_type here/get_content_type|here/Format;
-                       kssClassesView context/@@kss_field_decorator_view; 
-                       getKssClasses nocall:kssClassesView/getKssClassesInlineEditable">
+  <metal:block define-macro="content-core"
+                     tal:define="content_type context/file/contentType|nothing;
+                                 v python:context.restrictedTraverse('contenttype_utils');">
 
-        <div id="pageturner" tal:condition="python: view.installed and view.enabled">
-          <p> To view this page ensure that Adobe Flash Player version 9.0.124 or greater is installed.</p> 
-        </div>
-        <noscript tal:condition="python: view.installed and view.enabled">
-          Javascript required in order to display this PDF.
-        </noscript>
 
-        <p>
-            <metal:field use-macro="python:here.widget('file', mode='view')">
-            File
-            </metal:field>
-        </p>
+    <div id="pageturner" tal:condition="python: view.installed and view.enabled">
+      <p> To view this page ensure that Adobe Flash Player version 9.0.124 or greater is installed.</p> 
+    </div>
+    <noscript tal:condition="python: view.installed and view.enabled">
+      Javascript required in order to display this PDF.
+    </noscript>
+    <p>
+      <a tal:attributes="href string:${context/absolute_url}/@@download/file/${context/file/filename}">
+        <img tal:attributes="src python: v.getMimeTypeIcon(context.file); 
+                             alt content_type;" border="0"  />
+        <tal:name tal:content="context/file/filename" >Filename</tal:name>
+      </a> 
+      <span class="discreet"
+            tal:define="size context/file/getSize;
+                        kb python:size/1024">
+        &mdash; <span tal:replace="kb" /> KB</span>
+    </p>
 
-        <div tal:condition="python: content_type.startswith('text')">
-            <h2 i18n:translate="heading_file_contents">File contents</h2>
-            <pre tal:content="here/get_data|here/data|nothing">
-            </pre>
-        </div>
-
-    </tal:content-core>
+    <div tal:condition="python: content_type.startswith('text')">
+      <h2 i18n:translate="heading_file_contents">File contents</h2>
+      <pre tal:content="context/file/data|nothing" />
+    </div>
+  </metal:block>
 </div>
 
 </body>

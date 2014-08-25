@@ -1,19 +1,15 @@
 import subprocess
 import os
 from tempfile import mkstemp
-from Products.Archetypes.Field import FileField
 from settings import Settings, GlobalSettings
 from Acquisition import aq_inner
-from Products.Archetypes.BaseUnit import BaseUnit
 from DateTime import DateTime
 from logging import getLogger
-from Products.Archetypes.atapi import AnnotationStorage
 from zope.component.hooks import getSite
+from ZODB.blob import Blob
+
 
 logger = getLogger('wc.pageturner')
-
-converted_field = FileField('_converted_file',
-    storage=AnnotationStorage(migrate=True))
 
 
 class pdf2swf_subprocess:
@@ -61,10 +57,12 @@ class pdf2swf_subprocess:
             password = '--password=%s' % password
         else:
             password = ''
-        cmd = "%s %s -o %s -T 9 -f -t -G %s %s" % (self.pdf2swf_binary, path,
+        cmd = "%s %s -o %s -T 9 -f -t -G %s %s" % (
+            self.pdf2swf_binary, path,
             newpath, s_opts, password)
         logger.info("Running command %s" % cmd)
-        process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE,
+        process = subprocess.Popen(
+            cmd.split(), stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         output = process.communicate()[0]
         logger.info("Finished Running Command %s" % cmd)
@@ -95,13 +93,6 @@ except IOError:
     logger.exception("No SWFTools installed. Page Turner will not work.")
     pdf2swf = None
 
-try:
-    import plone.app.blob
-    from ZODB.blob import Blob
-    has_pab = True
-except:
-    has_pab = False
-
 
 def convert(context):
     """
@@ -114,7 +105,6 @@ def convert(context):
 
     if DateTime(settings.last_updated) < DateTime(context.ModificationDate()):
         context = aq_inner(context)
-        field = context.getField('file') or context.getPrimaryField()
 
         import transaction
         # commit anything done before the expensive operation
@@ -125,24 +115,17 @@ def convert(context):
                 global_settings.command_line_options
             if s_options:
                 opts = [o.strip().replace(' ', '').replace('\t', '')
-                            for o in s_options.split(',')]
+                        for o in s_options.split(',')]
             else:
                 opts = []
-            result = pdf2swf.convert(str(field.get(context).data), opts,
-                password=settings.encryption_password)
+            result = pdf2swf.convert(context.file.data, opts,
+                                     password=settings.encryption_password)
             transaction.begin()
-            if has_pab:
-                blob = Blob()
-                bfile = blob.open('w')
-                bfile.write(result)
-                bfile.close()
-                settings.data = blob
-            else:
-                file = BaseUnit('_converted_file', result,
-                    mimetype='application/x-shockwave-flash',
-                    filename=context.getFilename().replace('.pdf', '.swf'),
-                    context=context)
-                converted_field.set(context, file, _initializing_=True)
+            blob = Blob()
+            bfile = blob.open('w')
+            bfile.write(result)
+            bfile.close()
+            settings.data = blob
             settings.successfully_converted = True
         except:
             logger.exception('Error converting PDF')

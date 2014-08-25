@@ -7,6 +7,13 @@ scribd.com. It uses the open source project, Flex Paper, to display the PDFs. Yo
 information about it at `http://flexpaper.devaldi.com/`.
 
 
+Warning!!!!
+-----------
+
+The 2.x version is ONLY compatible with plone.app.contenttypes. It will not work with
+Achetypes content types any longer.
+
+
 Requirements
 ------------
 

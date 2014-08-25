@@ -6,11 +6,6 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="wc.pageturner">
 
-  <!-- make sense wildcard.pdfpal is initialized first if installed 
-    so it's events are registered first.
-  -->
-  <include zcml:condition="installed wildcard.pdfpal" package="wildcard.pdfpal" />
-
   <include package="plone.app.contentmenu" />
 
   <include package="Products.CMFCore" file="permissions.zcml"
@@ -36,7 +31,7 @@
   
   <browser:page
     name="converted.swf"
-    for="Products.ATContentTypes.interface.file.IFileContent"
+    for="plone.app.contenttypes.interfaces.IFile"
     class=".views.DownloadSWFView"
     permission="zope2.View"
     layer=".interfaces.Layer"
@@ -44,7 +39,7 @@
   
   <browser:page
     name="page-turner"
-    for="Products.ATContentTypes.interface.file.IFileContent"
+    for="plone.app.contenttypes.interfaces.IFile"
     class=".views.PageTurnerView"
     template="pageturner.pt"
     permission="zope2.View"
@@ -52,7 +47,7 @@
   />
   
   <browser:menuItem
-    for="Products.ATContentTypes.interface.file.IFileContent"
+    for="plone.app.contenttypes.interfaces.IFile"
     menu="plone_displayviews"
     title="Page Turner"
     action="page-turner"
@@ -61,13 +56,13 @@
   
   <browser:page
     name="page-turner-settings"
-    for="Products.ATContentTypes.interface.file.IFileContent"
+    for="plone.app.contenttypes.interfaces.IFile"
     class=".views.SettingsForm"
     layer=".interfaces.Layer"
     permission="cmf.ModifyPortalContent"
   />
   <adapter 
-    for="Products.ATContentTypes.interface.file.IFileContent"
+    for="plone.app.contenttypes.interfaces.IFile"
     provides=".interfaces.IPageTurnerSettings"
     factory=".settings.Settings"
   />
@@ -95,7 +90,7 @@
   
   <browser:page
     name="convert-to-flexpaper"
-    for="Products.ATContentTypes.interface.file.IFileContent"
+    for="plone.app.contenttypes.interfaces.IFile"
     permission="cmf.ModifyPortalContent"
     class=".views.Utils"
     attribute="convert"
@@ -115,17 +110,17 @@
   />
   
   <subscriber
-    for="Products.ATContentTypes.interface.IFileContent
-         Products.Archetypes.interfaces.IObjectEditedEvent"
-    handler=".events.handle_file_creation"
+    for="plone.app.contenttypes.interfaces.IFile
+         zope.lifecycleevent.IObjectModifiedEvent"
+    handler=".events.handle_file_modified"
   />
 
   <subscriber
-    for="Products.ATContentTypes.interface.IFileContent
-         Products.Archetypes.interfaces.IObjectInitializedEvent"
-    handler=".events.handle_file_creation"
+    for="plone.app.contenttypes.interfaces.IFile
+         zope.lifecycleevent.IObjectAddedEvent"
+    handler=".events.handle_file_added"
   />
-  
+
   <genericsetup:upgradeStep
       title="Upgrade wc.pageturner"
       description="Migrates Page Turner props to 1.0b1"
