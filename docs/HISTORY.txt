@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1 ~ unreleased
+2.0a1 ~ 2014-08-24
 ------------------
 
 - plone.app.contenttypes compatibility
