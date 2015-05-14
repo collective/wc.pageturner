@@ -54,4 +54,5 @@ def handle_file_creation(object, event):
         # if the new version of wildcard.pdfpal is installed, allow it to queue
         # this job up after it creates the searchable pdf.
         # otherwise, just queue it up here.
-        queue_job(object)
+        if object.getLayout() == 'page-turner':
+            queue_job(object)
