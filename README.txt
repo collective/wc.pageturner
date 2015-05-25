@@ -67,12 +67,17 @@ If all else fails, you can download SWFTools from `http://www.swftools.org/` and
 How-To
 ------
 
-* Add your PDF as a file to your Plone site.
+* Add your PDF as a File to your Plone site (Add New -> File menu).
 
-* Edit the various setting of the Page turner by clicking the `Page Turner Settings` button that is now available
+* Edit the various setting of the Page turner by clicking the `Page Turner Settings` button.
 
 * To turn off auto-selecting of the page turner layout for PDF files, go to ZMI -> portal_properties -> site_properties and
   customize the page_turner_auto_select_layout property to off.
+  
+* PDFs that were on your site before you activated this add-on will need to be converted (you will see an
+  error message on each File until you convert it). To convert an individual PDF, click the Flexpaper Convert 
+  button. Large PDFs will take some time to be converted.  To convert all PDFs on your site, go to your site's 
+  URL and append /@@convertall-to-flexpaper, e.g. http://www.yoursite.com/@@convertall-to-flexpaper
 
 
 Tested With
@@ -93,19 +98,19 @@ Asynchronous Conversion
 -----------------------
 
 With large PDFs the conversion to Flex Paper can take some time. If you have plone.app.async installed and configured, 
-this conversion will now happen in asynchronously.
+this conversion will happen asynchronously.
 
 
 Convert All
 -----------
 
-If you'd like to convert all the existing documents on your site, visit the url, http://www.yoursite.com/@@convertall-to-flexpaper
+If you'd like to convert all the existing documents on your site, visit the URL http://www.yoursite.com/@@convertall-to-flexpaper
 
 
 TODO
 ----
 
-- Add supoort for dexterity content types. Maybe via a behavior
+- Add support for Dexterity content types. Maybe via a behavior.
 
 
 Versions
