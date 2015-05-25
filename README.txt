@@ -48,7 +48,7 @@ Installing pdf2swf manually
 
 If your package manager installs a version of SWFTools that does not include pdf2swf, you can install an older version of the package that does.
 
-These instructions for installing on Ubuntu are based on from http://serverfault.com/questions/623604/install-pdf2swf-on-ubuntu-trusty-tahr14-04.
+These instructions for installing on Ubuntu are based on http://serverfault.com/questions/623604/install-pdf2swf-on-ubuntu-trusty-tahr14-04.
 
 For AMD64:
 
