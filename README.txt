@@ -61,6 +61,8 @@ For i386:
   # wget -P /tmp/ http://archive.canonical.com/ubuntu/pool/partner/s/swftools/swftools_0.9.0-0ubuntu2_i386.deb
   # chmod a+x /tmp/swftools_0.9.0-0ubuntu2_i386.deb
   # sudo dpkg -i /tmp/swftools_0.9.0-0ubuntu2_i386.deb
+  
+Other architectures are available at http://archive.canonical.com/ubuntu/pool/partner/s/swftools/
 
 If all else fails, you can download SWFTools from `http://www.swftools.org/` and install it yourself.
 
