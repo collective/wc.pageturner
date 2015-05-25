@@ -10,9 +10,15 @@ information about it at `http://flexpaper.devaldi.com/`.
 Requirements
 ------------
 
-This product requires that you have pdf2swf installed. pdf2swf is included with SWFTools.
-I suggest you stick with the package managers to install this as there are some dependencies
-that need to be installed.
+This product requires that you have pdf2swf installed. pdf2swf is included in older versions of SWFTools, 
+up to 0.9.0 (the most recent version of SWFTools is 0.9.2 dating from 2012).
+
+
+Installing pdf2swf with package managers
+----------------------------------------
+
+Where possible, we recommend you use package managers to install SWFTools as there are some dependencies
+that need to be installed. 
 
 If you're using Ubuntu Lucid, the swftools package should now be in the package repositories now:
 
@@ -24,14 +30,39 @@ On Mac, if you have MacPorts installed you can,
 
 On Debian, you'll need to install from source as the swftools package does not include pdf2swf: `http://wiki.swftools.org/wiki/Installation`
 
-If all else fails, you can download SWF tools from `http://www.swftools.org/` and install it yourself.
+Checking that you have installed pdf2swf
+----------------------------------------
 
+Once you have installed the package, check if pdf2swf is in your path. On Linux:
 
-Windows Users
-~~~~~~~~~~~~~
+  # which pdf2swf
+  
+On Windows: make sure pdf2swf.exe is in your path:
 
-Make sure pdf2swf.exe is in your path otherwise this product won't work.
+  C:\> pdf2swf
 
+If it isn't in your path (ie. you get an error message above), you'll have to install manually; see below.
+
+Installing pdf2swf manually
+---------------------------
+
+If your package manager installs a version of SWFTools that does not include pdf2swf, you can install an older version of the package that does.
+
+These instructions for installing on Ubuntu are based on from http://serverfault.com/questions/623604/install-pdf2swf-on-ubuntu-trusty-tahr14-04.
+
+For AMD64:
+
+  # wget -P /tmp/ http://archive.canonical.com/ubuntu/pool/partner/s/swftools/swftools_0.9.0-0ubuntu2_amd64.deb
+  # chmod a+x /tmp/swftools_0.9.0-0ubuntu2_amd64.deb
+  # sudo dpkg -i /tmp/swftools_0.9.0-0ubuntu2_amd64.deb
+
+For i386:
+
+  # wget -P /tmp/ http://archive.canonical.com/ubuntu/pool/partner/s/swftools/swftools_0.9.0-0ubuntu2_i386.deb
+  # chmod a+x /tmp/swftools_0.9.0-0ubuntu2_i386.deb
+  # sudo dpkg -i /tmp/swftools_0.9.0-0ubuntu2_i386.deb
+
+If all else fails, you can download SWFTools from `http://www.swftools.org/` and install it yourself.
 
 How-To
 ------
@@ -55,7 +86,7 @@ Tested With
 Credits
 -------
 
-Credit goes to Wildcard corp and Talin Senner for sponsoring and designing the product and Nathan Van Gheem for coding it.
+Credit goes to Wildcard Corp and Talin Senner for sponsoring and designing the product, and Nathan Van Gheem for coding it.
 
 
 Asynchronous Conversion
@@ -81,3 +112,9 @@ Versions
 --------
 
 Flexpaper: 1.5.1
+
+
+Upgrade Path
+------------
+
+For a more fully featured add-on, see https://pypi.python.org/pypi/collective.documentviewer 
