@@ -20,7 +20,7 @@ Installing pdf2swf with package managers
 Where possible, we recommend you use package managers to install SWFTools as there are some dependencies
 that need to be installed. 
 
-If you're using Ubuntu Lucid, the swftools package should now be in the package repositories now:
+If you're using Ubuntu Lucid (10.04) (and possibly later versions, but not Trusty Tahr, 14.04):
 
   # sudo apt-get install swftools
 
