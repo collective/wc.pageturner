@@ -6,6 +6,8 @@ The result is that you'll be able to view PDFs much in the same way you can view
 scribd.com. It uses the open source project, Flex Paper, to display the PDFs. You can find
 information about it at `http://flexpaper.devaldi.com/`.
 
+This package has been superceded by collective.documentviewer, which provides more functionality and is actively maintained.
+
 
 Requirements
 ------------
